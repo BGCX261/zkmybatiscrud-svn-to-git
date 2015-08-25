@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="contaweb.modelo.dao.Cierre_periodoDao">
+
+	<resultMap id="cierre_periodoMap" type="cierre_periodo">
+		<result column="id" property="id" />
+		<result column="codigo_empresa" property="codigo_empresa" />
+		<result column="codigo_sucursal" property="codigo_sucursal" />
+		<result column="anio" property="anio" />
+		<result column="mes" property="mes" />
+		<result column="creacion_date" property="creacion_date" />
+		<result column="ultimo_update" property="ultimo_update" />
+		<result column="creacion_user" property="creacion_user" />
+		<result column="ultimo_user" property="ultimo_user" />
+	</resultMap>
+
+	<insert id="crear" parameterType="cierre_periodo">
+		insert into public.cierre_periodo (id,codigo_empresa,
+		codigo_sucursal,anio,mes,
+		creacion_date,ultimo_update,creacion_user,
+		ultimo_user)
+
+		values (#{id},#{codigo_empresa},
+		#{codigo_sucursal},#{anio},#{mes},
+		#{creacion_date},#{ultimo_update},#{creacion_user},
+		#{ultimo_user})
+	</insert>
+
+	<update id="actualizar" parameterType="cierre_periodo">
+		update public.cierre_periodo set id = #{id},
+		codigo_empresa = #{codigo_empresa},codigo_sucursal = #{codigo_sucursal},
+		anio = #{anio},mes = #{mes},
+		creacion_date = #{creacion_date},ultimo_update = #{ultimo_update},
+		creacion_user = #{creacion_user},ultimo_user = #{ultimo_user}
+		where id = #{id}
+	</update>
+
+	<select id="consultar" parameterType="cierre_periodo" resultMap="cierre_periodoMap">
+		select id,codigo_empresa,
+		codigo_sucursal,anio,mes,creacion_date,
+		ultimo_update,creacion_user,ultimo_user
+		from public.cierre_periodo where id = #{id}
+	</select>
+
+	<delete id="eliminar" parameterType="cierre_periodo">
+		delete from public.cierre_periodo
+		where id = #{id}
+	</delete>
+
+	<select id="listar" parameterType="java.util.Map" resultMap="cierre_periodoMap">
+		select id,codigo_empresa,
+		codigo_sucursal,anio,mes,creacion_date,
+		ultimo_update,creacion_user,ultimo_user
+		from public.cierre_periodo 
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="codigo_empresa != null">
+			AND codigo_empresa = #{codigo_empresa}
+			</if>
+			<if test="codigo_sucursal != null">
+			AND codigo_sucursal = #{codigo_sucursal}
+			</if>
+			<if test="parameter != null">
+			AND ${parameter} like '${value}'
+			</if>
+		</trim>
+		<if test="limit != null">
+		${limit}
+		</if>
+	</select>
+
+	<select id="exist" resultType="java.lang.Boolean">
+		select count(*) != 0 AS exist 		from public.cierre_periodo 
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="codigo_empresa != null">
+			AND codigo_empresa = #{codigo_empresa}
+			</if>
+			<if test="codigo_sucursal != null">
+			AND codigo_sucursal = #{codigo_sucursal}
+			</if>
+			<if test="parameter != null">
+			AND ${parameter} like '${value}'
+			</if>
+		</trim>
+		<if test="limit != null">
+		${limit}
+		</if>
+	</select>
+
+</mapper>

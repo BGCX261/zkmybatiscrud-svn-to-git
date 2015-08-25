@@ -1,0 +1,140 @@
+<?page title="Cierre_periodo" contentType="text/html;charset=UTF-8"?>
+<zk xmlns:h="http://www.w3.org/1999/xhtml">
+<window id="formCierre_periodo" width="100%" height="97%" use="contaweb.controller.Cierre_periodoAction">
+<style>
+		body ,table{ margin:0; padding:0;
+		} .z-fieldset{ -moz-border-radius:5px; border-radius: 5px;
+		-webkit-border-radius: 5px; } .combobox{ font-size:12px;
+		border: 1px solid silver; }
+		tr.z-row .z-cell{ background-image:none; }
+		tr.z-row td.z-row-hover{ background-image:none; }
+		.GridSinBorde tr.z-row td.z-row-inner, tr.z-row
+			.z-cell,div.z-grid { border: none; overflow: hidden;
+			zoom: 1; border-top: none; border-left: none;
+			border-right: none; border-bottom: none; }
+		</style>
+
+<!-- **************** -->
+<!-- Zona de Objetivo -->
+<!-- **************** -->
+<groupbox id="groupboxObjetivo" closable="false" mold="3d">
+<caption label="Modulo de Cierre_periodo" style="color: blue;font-weight: bold"/>
+<label value="Esta pagina permite gestionar los Cierre periodo."/>
+</groupbox>
+
+<!-- **************** -->
+<!-- Zona de Consulta -->
+<!-- **************** -->
+<groupbox id="groupboxConsulta" visible="true" closable="false" mold="3d" height="90%">
+<caption label="Consultar" style="color: blue;font-weight: bold"/>
+
+<separator />
+
+<!-- ***************************** -->
+<!--  Resultado Consulta Maestros  -->
+<!-- ***************************** -->
+<grid id="gridResultado" height="90%" mold="paging" pageSize="20"  vflex="1">
+<auxhead>
+						<auxheader colspan="3">
+								<hbox align="center">
+										<label value="Criterios de B&#250;squeda :" />
+										<space />
+										<listbox id="lbxParameter" mold="select"
+												sclass="combobox" width="150px" />
+										<separator />
+										<textbox id="tbxValue" width="200px"
+												onOK="formCierre_periodo.buscarDatos();"
+												style="text-transform:uppercase" />
+										<separator />
+										<button mold="trendy"
+												image="/images/Magnifier.gif"
+												onClick="formCierre_periodo.buscarDatos();"
+												tooltiptext="Consultar Cierre periodo" />
+										<separator />
+										<button mold="trendy"
+												image="/images/New16.gif"
+												onClick='formCierre_periodo.accionForm(true,"registrar");'
+												tooltiptext="Nuevo Cierre periodo" />
+								</hbox>
+						</auxheader>
+				</auxhead>
+<columns sizable="true">
+	<column label="Anio"/>
+	<column label="Mes"/>
+	<column label="Acciones" align="center" width="80px"/>
+</columns>
+<rows id="rowsResultado" width="100%" />
+</grid>
+</groupbox>
+
+<borderlayout width="100%" height="90%" id="groupboxEditar" visible="false">
+				<north border="none">
+						<toolbar width="100%" align="start">
+								<textbox id="tbxAccion" value="registrar"
+										visible="false" />
+								<toolbarbutton image="/images/Save16.gif"
+										label="Guardar Cierre periodo"
+										onClick="formCierre_periodo.guardarDatos();" id="btGuardar" />
+		 		                  <toolbarbutton image="/images/New16.gif"
+										label="Nueva Cierre periodo"
+										onClick='formCierre_periodo.accionForm(true,"registrar");'
+										id="btNew" />
+								<space />
+		 		                  <toolbarbutton image="/images/trasladar.gif"
+										label="Cancelar" onClick='formCierre_periodo.accionForm(false,tbxAccion.getText());'
+										id="btCancel" />
+								<toolbarbutton image="/images/print_ico.gif"
+										label="Imprimir Cierre periodo"
+										onClick="formCierre_periodo.imprimir();"
+										id="btImprimir" visible="false"/>
+								<space />
+								<label value="Formato impresión: " visible="false"/>
+									<listbox id="lbxFormato" mold="select" width="150px" visible="false"
+										sclass="combobox">
+										<listitem value="pdf" label="PDF"
+												selected="true" />
+										<listitem value="rtf" label="WORD" />
+								</listbox>
+						</toolbar>
+				</north>
+				<center autoscroll="true" border="none" >
+				<div align="center">
+
+<!-- *************************** -->
+<!-- *** Insertar/Actualizar *** -->
+<!-- *************************** -->
+<groupbox  closable="false"  width="905px" mold="3d">
+<grid sclass="GridSinBorde" hflex="1">
+<columns>
+<column label="" width="276px"/>
+<column label="" width="170px" align="left"/>
+<column label="" width="182px"/>
+<column label="" width="276px"/>
+</columns>
+<rows>
+
+<!-- fila 1 -->
+<row>
+<cell></cell>
+<cell height="30px"><label value="* " style="color: red" tooltiptext="Campo obligatorio"/><label id="lbAnio" value="Anio: "/></cell>
+<cell><textbox id="tbxAnio" width="170px" style="text-transform:uppercase" maxlength="4"/></cell>
+<cell></cell>
+</row>
+
+<!-- fila 2 -->
+<row>
+<cell></cell>
+<cell height="30px"><label value="* " style="color: red" tooltiptext="Campo obligatorio"/><label id="lbMes" value="Mes: "/></cell>
+<cell><textbox id="tbxMes" width="170px" style="text-transform:uppercase" maxlength="2"/></cell>
+<cell></cell>
+</row>
+
+</rows>
+</grid>
+
+</groupbox>
+	</div>
+	</center>
+	</borderlayout>
+</window>
+</zk>
